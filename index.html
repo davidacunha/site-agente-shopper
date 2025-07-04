@@ -39,19 +39,44 @@
             100% { transform: rotate(360deg); }
         }
         /* Estilos para o conteúdo gerado */
-        #gemini-results h3 {
+        .prose h3 {
             font-size: 1.25rem; /* text-xl */
             font-weight: 700; /* font-bold */
             margin-top: 1.5rem; /* mt-6 */
             margin-bottom: 0.5rem; /* mb-2 */
         }
-        #gemini-results ul {
+        .prose ul {
             list-style-type: disc;
             padding-left: 1.5rem; /* pl-6 */
             margin-bottom: 1rem; /* mb-4 */
         }
-         #gemini-results li {
+         .prose li {
             margin-bottom: 0.25rem; /* mb-1 */
+        }
+        /* Estilos para as páginas de políticas */
+        .policy-page {
+            display: none; /* Escondido por padrão */
+        }
+        .policy-content h1 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            margin-bottom: 1rem;
+        }
+        .policy-content h2 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+            padding-bottom: 0.5rem;
+        }
+        .policy-content p, .policy-content li {
+            line-height: 1.75;
+            color: #4b5563; /* gray-600 */
+        }
+        .policy-content ul {
+            list-style-type: disc;
+            padding-left: 2rem;
         }
     </style>
 </head>
@@ -60,239 +85,346 @@
     <!-- CABEÇALHO -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600">
+            <a href="#" onclick="showPage('main')" class="text-2xl font-bold text-blue-600">
                 Agente Shopper
             </a>
             <div class="hidden md:flex space-x-6">
-                <a href="#sobre" class="text-gray-600 hover:text-blue-600 transition">Sobre</a>
-                <a href="#como-funciona" class="text-gray-600 hover:text-blue-600 transition">Como Funciona</a>
-                <a href="#assistente" class="text-gray-600 hover:text-blue-600 transition">✨ Assistente</a>
-                <a href="#contato" class="text-gray-600 hover:text-blue-600 transition">Contato</a>
+                <a href="#sobre" onclick="showPage('main')" class="text-gray-600 hover:text-blue-600 transition">Sobre</a>
+                <a href="#como-funciona" onclick="showPage('main')" class="text-gray-600 hover:text-blue-600 transition">Como Funciona</a>
+                <a href="#assistente" onclick="showPage('main')" class="text-gray-600 hover:text-blue-600 transition">✨ Assistente</a>
+                <a href="#contato" onclick="showPage('main')" class="text-gray-600 hover:text-blue-600 transition">Contato</a>
             </div>
-            <a href="#contato" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-semibold">
+            <a href="#contato" onclick="showPage('main')" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-semibold">
                 Fale Conosco
             </a>
         </nav>
     </header>
 
-    <!-- SEÇÃO PRINCIPAL (HERO) -->
-    <main>
-        <section class="bg-white">
-            <div class="container mx-auto px-6 py-20 md:py-32 text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-                    Seu Assistente Pessoal de Compras
-                </h1>
-                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                    Economize tempo e dinheiro. Nós encontramos os melhores produtos e ofertas para você, com a ajuda da nossa inteligência artificial.
-                </p>
-                <a href="#contato" class="mt-10 inline-block bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition text-lg font-bold">
-                    Comece a Economizar Agora
-                </a>
-            </div>
-        </section>
-
-        <!-- SEÇÃO SOBRE NÓS -->
-        <section id="sobre" class="py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900">Nossa Missão é Simplificar sua Vida</h2>
-                <div class="mt-8 max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                    <div class="text-left">
-                        <p class="text-gray-700 mb-4">
-                            Em um mundo com infinitas opções, encontrar o produto certo pode ser cansativo. O Agente Shopper nasceu para resolver esse problema.
-                        </p>
-                        <p class="text-gray-700">
-                            Utilizamos tecnologia para analisar suas necessidades e pesquisar em milhares de lojas, apresentando apenas as melhores opções, de forma rápida e segura. Nossa credibilidade é construída na sua satisfação.
-                        </p>
-                    </div>
-                    <div>
-                        <!-- Imagem de credibilidade/confiança -->
-                        <img src="https://placehold.co/500x400/3b82f6/ffffff?text=Credibilidade" alt="Imagem representando confiança e tecnologia" class="rounded-lg shadow-lg mx-auto">
+    <!-- CONTEÚDO PRINCIPAL DO SITE -->
+    <div id="page-main">
+        <main>
+            <section class="bg-white">
+                <div class="container mx-auto px-6 py-20 md:py-32 text-center">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Seu Assistente Pessoal de Compras
+                    </h1>
+                    <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                        Economize tempo e dinheiro. Nós encontramos os melhores produtos e ofertas para você, com a ajuda da nossa inteligência artificial.
+                    </p>
+                    <a href="#contato" class="mt-10 inline-block bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition text-lg font-bold">
+                        Comece a Economizar Agora
+                    </a>
+                </div>
+            </section>
+            <section id="sobre" class="py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">Nossa Missão é Simplificar sua Vida</h2>
+                    <div class="mt-8 max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                        <div class="text-left">
+                            <p class="text-gray-700 mb-4">
+                                Em um mundo com infinitas opções, encontrar o produto certo pode ser cansativo. O Agente Shopper nasceu para resolver esse problema.
+                            </p>
+                            <p class="text-gray-700">
+                                Utilizamos tecnologia para analisar suas necessidades e pesquisar em milhares de lojas, apresentando apenas as melhores opções, de forma rápida e segura. Nossa credibilidade é construída na sua satisfação.
+                            </p>
+                        </div>
+                        <div>
+                            <img src="https://placehold.co/500x400/3b82f6/ffffff?text=Credibilidade" alt="Imagem representando confiança e tecnologia" class="rounded-lg shadow-lg mx-auto">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- SEÇÃO COMO FUNCIONA -->
-        <section id="como-funciona" class="bg-white py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900">Simples, Rápido e Eficiente</h2>
-                <p class="mt-4 text-lg text-gray-600">Em apenas 3 passos, você encontra o que precisa.</p>
-                <div class="mt-12 grid md:grid-cols-3 gap-10">
-                    <!-- Passo 1 -->
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
-                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            </section>
+            <section id="como-funciona" class="bg-white py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">Simples, Rápido e Eficiente</h2>
+                    <p class="mt-4 text-lg text-gray-600">Em apenas 3 passos, você encontra o que precisa.</p>
+                    <div class="mt-12 grid md:grid-cols-3 gap-10">
+                        <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                            <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold">Diga o que você precisa</h3>
+                            <p class="mt-2 text-gray-600">Nos envie uma mensagem com os detalhes do produto que você está procurando.</p>
                         </div>
-                        <h3 class="mt-6 text-xl font-bold">Diga o que você precisa</h3>
-                        <p class="mt-2 text-gray-600">Nos envie uma mensagem com os detalhes do produto que você está procurando.</p>
-                    </div>
-                    <!-- Passo 2 -->
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
-                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                        <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                            <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold">Receba as melhores opções</h3>
+                            <p class="mt-2 text-gray-600">Nossa IA analisa e envia uma lista com as melhores ofertas e links seguros.</p>
                         </div>
-                        <h3 class="mt-6 text-xl font-bold">Receba as melhores opções</h3>
-                        <p class="mt-2 text-gray-600">Nossa IA analisa e envia uma lista com as melhores ofertas e links seguros.</p>
-                    </div>
-                    <!-- Passo 3 -->
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
-                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                        <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                            <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold">Compre com Confiança</h3>
+                            <p class="mt-2 text-gray-600">Escolha a melhor oferta e compre diretamente do site da loja, com total segurança.</p>
                         </div>
-                        <h3 class="mt-6 text-xl font-bold">Compre com Confiança</h3>
-                        <p class="mt-2 text-gray-600">Escolha a melhor oferta e compre diretamente do site da loja, com total segurança.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- NOVA SEÇÃO: ASSISTENTE DE IDEIAS COM GEMINI -->
-        <section id="assistente" class="py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900">✨ Assistente de Ideias</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Sem saber por onde começar? Descreva o que você tem em mente e nossa IA irá gerar sugestões para você.</p>
-                
-                <div class="mt-10 bg-white p-8 rounded-lg shadow-xl max-w-2xl mx-auto">
-                    <div class="w-full">
-                        <label for="gemini-prompt" class="block text-left font-semibold text-gray-700 mb-2">Descreva sua necessidade:</label>
-                        <textarea id="gemini-prompt" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: Preciso de um presente de aniversário para meu pai que gosta de pescar e ler..."></textarea>
-                    </div>
-                    <button id="gemini-button" class="mt-6 w-full bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition text-lg font-bold flex items-center justify-center">
-                        Gerar Sugestões com IA ✨
-                    </button>
-
-                    <div id="loader-container" class="mt-8 hidden flex-col items-center">
-                        <div class="loader"></div>
-                        <p class="mt-4 text-gray-600">Nosso assistente está pensando... Isso pode levar alguns segundos.</p>
-                    </div>
-
-                    <div id="gemini-results-container" class="mt-8 hidden text-left">
-                        <h3 class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4">Aqui estão algumas ideias:</h3>
-                        <div id="gemini-results" class="prose max-w-none text-gray-700"></div>
+            </section>
+            <section id="assistente" class="py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">✨ Assistente de Ideias</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Sem saber por onde começar? Descreva o que você tem em mente e nossa IA irá gerar sugestões para você.</p>
+                    <div class="mt-10 bg-white p-8 rounded-lg shadow-xl max-w-2xl mx-auto">
+                        <div class="w-full">
+                            <label for="gemini-prompt" class="block text-left font-semibold text-gray-700 mb-2">Descreva sua necessidade:</label>
+                            <textarea id="gemini-prompt" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: Preciso de um presente de aniversário para meu pai que gosta de pescar e ler..."></textarea>
+                        </div>
+                        <button id="gemini-button" class="mt-6 w-full bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition text-lg font-bold flex items-center justify-center">
+                            Gerar Sugestões com IA ✨
+                        </button>
+                        <div id="loader-container" class="mt-8 hidden flex-col items-center">
+                            <div class="loader"></div>
+                            <p class="mt-4 text-gray-600">Nosso assistente está pensando... Isso pode levar alguns segundos.</p>
+                        </div>
+                        <div id="gemini-results-container" class="mt-8 hidden text-left">
+                            <h3 class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4">Aqui estão algumas ideias:</h3>
+                            <div id="gemini-results" class="prose max-w-none text-gray-700"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SEÇÃO DE CONTATO -->
-        <section id="contato" class="bg-white py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900">Pronto para começar?</h2>
-                <p class="mt-4 text-lg text-gray-600">Envie uma mensagem e deixe nosso agente encontrar o que você precisa.</p>
-                <div class="mt-10 bg-gray-50 p-10 rounded-lg shadow-xl max-w-lg mx-auto">
-                    <h3 class="text-xl font-semibold mb-6">Nossos Canais de Atendimento</h3>
-                    <div class="space-y-4">
-                        <!-- WhatsApp -->
-                        <div class="flex items-start justify-center space-x-3">
-                            <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-                            </svg>
-                            <div>
-                                <span class="font-semibold">WhatsApp:</span>
-                                <div class="flex flex-col items-center md:items-start">
-                                     <a href="https://wa.me/554731705839" target="_blank" class="text-blue-600 hover:underline">+55 (47) 3170-5839</a>
-                                     <a href="https://wa.me/554731800590" target="_blank" class="text-blue-600 hover:underline">+55 (47) 3180-0590</a>
+            </section>
+            <section id="contato" class="bg-white py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">Pronto para começar?</h2>
+                    <p class="mt-4 text-lg text-gray-600">Envie uma mensagem e deixe nosso agente encontrar o que você precisa.</p>
+                    <div class="mt-10 bg-gray-50 p-10 rounded-lg shadow-xl max-w-lg mx-auto">
+                        <h3 class="text-xl font-semibold mb-6">Nossos Canais de Atendimento</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start justify-center space-x-3">
+                                <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">WhatsApp:</span>
+                                    <div class="flex flex-col items-center md:items-start">
+                                         <a href="https://wa.me/554731705839" target="_blank" class="text-blue-600 hover:underline">+55 (47) 3170-5839</a>
+                                         <a href="https://wa.me/554731800590" target="_blank" class="text-blue-600 hover:underline">+55 (47) 3180-0590</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Email -->
-                        <div class="flex items-center justify-center space-x-3 pt-4">
-                            <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                            <span class="font-semibold">E-mail:</span>
-                            <a href="mailto:davidacunha26@gmail.com" class="text-blue-600 hover:underline">davidacunha26@gmail.com</a>
+                            <div class="flex items-center justify-center space-x-3 pt-4">
+                                <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                                <span class="font-semibold">E-mail:</span>
+                                <a href="mailto:davidacunha26@gmail.com" class="text-blue-600 hover:underline">davidacunha26@gmail.com</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
+
+    <!-- PÁGINA DE POLÍTICA DE PRIVACIDADE -->
+    <div id="page-privacy" class="policy-page">
+        <div class="container mx-auto px-6 py-16 policy-content">
+            <button onclick="showPage('main')" class="mb-8 bg-gray-200 text-gray-800 px-5 py-2 rounded-full hover:bg-gray-300 transition font-semibold">
+                &larr; Voltar ao Início
+            </button>
+            <h1>Política de Privacidade para Agente Shopper</h1>
+            <p><strong>Última atualização:</strong> 04 de julho de 2025</p>
+            <p class="mt-4">Bem-vindo(a) à Política de Privacidade do Agente Shopper. Sua privacidade é de extrema importância para nós. Este documento descreve como coletamos, usamos, armazenamos e protegemos suas informações pessoais ao utilizar nossos serviços através do WhatsApp e do nosso site.</p>
+            <p class="mt-2">Ao utilizar os serviços do Agente Shopper, você concorda com a coleta e uso de informações de acordo com esta política.</p>
+
+            <h2>1. Informações que Coletamos</h2>
+            <p>Coletamos diferentes tipos de informações para fornecer e melhorar nosso serviço para você:</p>
+            <ul>
+                <li><strong>Informações Fornecidas por Você:</strong>
+                    <ul>
+                        <li><strong>Dados de Contato:</strong> Seu nome, número de telefone (WhatsApp) e endereço de e-mail.</li>
+                        <li><strong>Conteúdo das Mensagens:</strong> As conversas que você tem com nosso agente, incluindo descrições de produtos, perguntas, preferências de compra e qualquer outra informação que você compartilhe voluntariamente.</li>
+                    </ul>
+                </li>
+                <li><strong>Informações Coletadas Automaticamente:</strong>
+                    <ul>
+                        <li><strong>Dados de Uso do Site:</strong> Quando você visita nosso site, podemos coletar informações como seu endereço IP, tipo de navegador, páginas visitadas e horários de acesso.</li>
+                        <li><strong>Cookies:</strong> Utilizamos cookies para melhorar a experiência em nosso site, entender o tráfego e personalizar o conteúdo.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>2. Como Usamos Suas Informações</h2>
+            <p>As informações que coletamos são usadas para os seguintes propósitos:</p>
+            <ul>
+                <li><strong>Para Fornecer o Serviço:</strong> Usamos suas descrições e preferências para pesquisar produtos e fornecer sugestões de compra personalizadas.</li>
+                <li><strong>Para Comunicação:</strong> Para responder às suas solicitações, enviar informações sobre nossos serviços e fornecer suporte ao cliente através do WhatsApp ou e-mail.</li>
+                <li><strong>Para Melhoria do Serviço:</strong> Analisamos as interações para treinar nossa inteligência artificial, melhorar a qualidade das nossas sugestões e otimizar a experiência do usuário.</li>
+                <li><strong>Para Segurança:</strong> Para proteger nossos serviços contra fraudes e abusos.</li>
+            </ul>
+
+            <h2>3. Uso de Inteligência Artificial (IA)</h2>
+            <p>Para fornecer sugestões de produtos e ideias, utilizamos tecnologias de inteligência artificial, incluindo modelos de linguagem avançados (LLMs) fornecidos por parceiros como o Google (Gemini). As informações contidas em suas solicitações (o texto que você digita) são enviadas a esses serviços de IA para gerar uma resposta relevante. Nós não compartilhamos seus dados de identificação pessoal (como nome ou número de telefone) com nossos parceiros de IA. As solicitações são processadas de forma a proteger sua identidade.</p>
+
+            <h2>4. Compartilhamento de Informações</h2>
+            <p>Nós não vendemos ou alugamos suas informações pessoais para terceiros. O compartilhamento de informações ocorre apenas nas seguintes circunstâncias:</p>
+            <ul>
+                <li><strong>Com Provedores de Serviço:</strong> Podemos compartilhar informações com empresas que nos auxiliam a operar nosso negócio, como provedores de hospedagem e os serviços de IA mencionados acima, sob estritas obrigações de confidencialidade.</li>
+                <li><strong>Por Obrigação Legal:</strong> Podemos divulgar suas informações se formos obrigados por lei ou em resposta a solicitações válidas de autoridades públicas (por exemplo, um tribunal ou uma agência governamental).</li>
+            </ul>
+
+            <h2>5. Segurança dos Dados</h2>
+            <p>A segurança de suas informações é uma prioridade. Empregamos medidas de segurança técnicas e administrativas para proteger seus dados contra acesso não autorizado, alteração, divulgação ou destruição. No entanto, lembre-se que nenhum método de transmissão pela Internet ou armazenamento eletrônico é 100% seguro.</p>
+
+            <h2>6. Seus Direitos</h2>
+            <p>De acordo com a Lei Geral de Proteção de Dados (LGPD), você tem o direito de: Acessar suas informações pessoais; Corrigir dados incompletos, inexatos ou desatualizados; Solicitar a exclusão de seus dados, exceto nos casos previstos em lei; Revogar o consentimento a qualquer momento. Para exercer seus direitos, entre em contato conosco através do e-mail listado abaixo.</p>
+
+            <h2>7. Exclusão de Dados do Usuário</h2>
+            <p>Você pode solicitar a exclusão de todos os seus dados armazenados em nossos sistemas a qualquer momento. Para fazer isso, por favor, envie um e-mail para <strong>davidacunha26@gmail.com</strong> com o assunto "Solicitação de Exclusão de Dados". Processaremos sua solicitação dentro de um prazo razoável.</p>
+
+            <h2>8. Alterações a Esta Política de Privacidade</h2>
+            <p>Podemos atualizar nossa Política de Privacidade periodicamente. Notificaremos você sobre quaisquer alterações publicando a nova Política de Privacidade nesta página e atualizando a data da "Última atualização".</p>
+
+            <h2>9. Contato</h2>
+            <p>Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco:</p>
+            <p><strong>Agente Shopper</strong><br>
+            E-mail: <strong>davidacunha26@gmail.com</strong><br>
+            Site: <strong>https://agente-shopper.vercel.app</strong></p>
+        </div>
+    </div>
+
+    <!-- PÁGINA DE TERMOS DE SERVIÇO -->
+    <div id="page-terms" class="policy-page">
+        <div class="container mx-auto px-6 py-16 policy-content">
+            <button onclick="showPage('main')" class="mb-8 bg-gray-200 text-gray-800 px-5 py-2 rounded-full hover:bg-gray-300 transition font-semibold">
+                &larr; Voltar ao Início
+            </button>
+            <h1>Termos de Serviço do Agente Shopper</h1>
+            <p><strong>Última atualização:</strong> 04 de julho de 2025</p>
+            <p class="mt-4">Bem-vindo ao Agente Shopper. Estes Termos de Serviço ("Termos") regem o seu uso dos nossos serviços. Ao acessar ou usar nosso serviço, você concorda em cumprir estes Termos.</p>
+            
+            <h2>1. Descrição do Serviço</h2>
+            <p>O Agente Shopper é um serviço de assistente de compras que utiliza inteligência artificial para fornecer sugestões de produtos com base nas descrições e preferências fornecidas pelo usuário. Nosso objetivo é facilitar a busca por produtos, mas não somos responsáveis pela compra, venda, entrega ou garantia dos produtos sugeridos.</p>
+            
+            <h2>2. Uso do Serviço</h2>
+            <p>Você concorda em usar nosso serviço apenas para fins legais e de acordo com estes Termos. Você não deve:</p>
+            <ul>
+                <li>Usar o serviço de qualquer forma que possa danificar, desabilitar ou sobrecarregar nossos servidores ou redes.</li>
+                <li>Tentar obter acesso não autorizado a qualquer parte do serviço.</li>
+                <li>Fornecer informações falsas ou enganosas.</li>
+            </ul>
+
+            <h2>3. Isenção de Garantia</h2>
+            <p>O serviço é fornecido "como está" e "conforme disponível", sem garantias de qualquer tipo. Embora nos esforcemos para fornecer sugestões precisas e úteis, não garantimos que as informações (incluindo preços, disponibilidade e descrições de produtos) estejam sempre corretas, completas ou atualizadas. As decisões de compra são de sua exclusiva responsabilidade.</p>
+
+            <h2>4. Limitação de Responsabilidade</h2>
+            <p>Em nenhuma circunstância o Agente Shopper, seus diretores ou funcionários serão responsáveis por quaisquer danos diretos, indiretos, incidentais ou consequenciais resultantes do uso ou da incapacidade de usar nosso serviço, incluindo, mas não se limitando a, perdas financeiras ou decisões de compra.</p>
+
+            <h2>5. Propriedade Intelectual</h2>
+            <p>Todo o conteúdo do nosso site, incluindo textos, gráficos, logos e software, é propriedade do Agente Shopper ou de seus licenciadores e é protegido por leis de direitos autorais.</p>
+
+            <h2>6. Alterações nos Termos</h2>
+            <p>Reservamo-nos o direito de modificar estes Termos a qualquer momento. Notificaremos sobre as alterações publicando os novos Termos nesta página. O uso contínuo do serviço após tais alterações constitui sua aceitação dos novos Termos.</p>
+
+            <h2>7. Contato</h2>
+            <p>Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em contato conosco através do e-mail: <strong>davidacunha26@gmail.com</strong>.</p>
+        </div>
+    </div>
 
     <!-- RODAPÉ -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" onclick="showPage('privacy'); return false;" class="text-gray-400 hover:text-white transition">Política de Privacidade</a>
+                <a href="#" onclick="showPage('terms'); return false;" class="text-gray-400 hover:text-white transition">Termos de Serviço</a>
+            </div>
             <p>&copy; 2025 Agente Shopper. Todos os direitos reservados.</p>
             <p class="text-sm text-gray-400 mt-2">Construindo confiança através da tecnologia.</p>
         </div>
     </footer>
 
     <script>
-        // FIX: Wrap the entire script in a DOMContentLoaded event listener.
-        // This ensures all HTML elements are loaded before the script tries to access them,
-        // which improves stability and can prevent conflicts with browser extensions.
+        function showPage(pageId) {
+            // Esconde todas as seções principais
+            document.getElementById('page-main').style.display = 'none';
+            document.getElementById('page-privacy').style.display = 'none';
+            document.getElementById('page-terms').style.display = 'none';
+
+            // Mostra a seção desejada
+            const pageToShow = document.getElementById('page-' + pageId);
+            if(pageToShow) {
+                pageToShow.style.display = 'block';
+            } else {
+                // Se a página não for encontrada, mostra a principal como padrão
+                document.getElementById('page-main').style.display = 'block';
+            }
+            
+            // Rola a página para o topo
+            window.scrollTo(0, 0);
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
-            // Script para a funcionalidade do Gemini
+            // Garante que a página principal seja exibida ao carregar
+            showPage('main');
+
             const geminiButton = document.getElementById('gemini-button');
             const geminiPrompt = document.getElementById('gemini-prompt');
             const loaderContainer = document.getElementById('loader-container');
             const resultsContainer = document.getElementById('gemini-results-container');
             const resultsDiv = document.getElementById('gemini-results');
 
-            geminiButton.addEventListener('click', async () => {
-                const userInput = geminiPrompt.value;
-                if (!userInput.trim()) {
-                    // Changed alert to a less intrusive way of handling validation, e.g. a console log or a visual cue.
-                    // For this fix, we'll keep it simple, but in a real app, a visual message would be better.
-                    console.log('User input is empty.');
-                    geminiPrompt.focus();
-                    geminiPrompt.classList.add('border-red-500');
-                    setTimeout(()=> geminiPrompt.classList.remove('border-red-500'), 2000);
-                    return;
-                }
-
-                // Mostrar loader e esconder resultados anteriores
-                loaderContainer.style.display = 'flex';
-                resultsContainer.style.display = 'none';
-                geminiButton.disabled = true;
-                geminiButton.classList.add('opacity-50', 'cursor-not-allowed');
-
-                try {
-                    // Construir o prompt para a API
-                    const prompt = `Você é um "Agente Shopper", um especialista em encontrar os melhores produtos. Um usuário descreveu a seguinte necessidade: "${userInput}". Com base nisso, sugira 3 ideias de produtos ou categorias distintas. Para cada ideia, forneça: um nome para a sugestão, uma breve descrição do porquê é uma boa ideia, e uma lista de 3 características essenciais a procurar nesse tipo de produto. Formate a resposta usando Markdown com títulos para cada ideia e listas para as características.`;
-                    
-                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // A chave da API será injetada pelo ambiente
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+            if (geminiButton) {
+                geminiButton.addEventListener('click', async () => {
+                    const userInput = geminiPrompt.value;
+                    if (!userInput.trim()) {
+                        console.log('User input is empty.');
+                        geminiPrompt.focus();
+                        geminiPrompt.classList.add('border-red-500');
+                        setTimeout(()=> geminiPrompt.classList.remove('border-red-500'), 2000);
+                        return;
                     }
 
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
+                    loaderContainer.style.display = 'flex';
+                    resultsContainer.style.display = 'none';
+                    geminiButton.disabled = true;
+                    geminiButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+                    try {
+                        const prompt = `Você é um "Agente Shopper", um especialista em encontrar os melhores produtos. Um usuário descreveu a seguinte necessidade: "${userInput}". Com base nisso, sugira 3 ideias de produtos ou categorias distintas. Para cada ideia, forneça: um nome para a sugestão, uma breve descrição do porquê é uma boa ideia, e uma lista de 3 características essenciais a procurar nesse tipo de produto. Formate a resposta usando Markdown com títulos para cada ideia e listas para as características.`;
                         
-                        const generatedText = result.candidates[0].content.parts[0].text;
-                        // Usar a biblioteca 'marked' para converter Markdown em HTML
-                        resultsDiv.innerHTML = marked.parse(generatedText);
+                        let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                        const payload = { contents: chatHistory };
+                        const apiKey = ""; 
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            
+                            const generatedText = result.candidates[0].content.parts[0].text;
+                            resultsDiv.innerHTML = marked.parse(generatedText);
+                            resultsContainer.style.display = 'block';
+
+                        } else {
+                            throw new Error('A resposta da API não contém o conteúdo esperado.');
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao chamar a API do Gemini:', error);
+                        resultsDiv.innerHTML = '<p class="text-red-500">Desculpe, ocorreu um erro ao tentar gerar as sugestões. Por favor, tente novamente mais tarde.</p>';
                         resultsContainer.style.display = 'block';
-
-                    } else {
-                        throw new Error('A resposta da API não contém o conteúdo esperado.');
+                    } finally {
+                        loaderContainer.style.display = 'none';
+                        geminiButton.disabled = false;
+                        geminiButton.classList.remove('opacity-50', 'cursor-not-allowed');
                     }
-
-                } catch (error) {
-                    console.error('Erro ao chamar a API do Gemini:', error);
-                    resultsDiv.innerHTML = '<p class="text-red-500">Desculpe, ocorreu um erro ao tentar gerar as sugestões. Por favor, tente novamente mais tarde.</p>';
-                    resultsContainer.style.display = 'block';
-                } finally {
-                    // Esconder loader e reativar o botão
-                    loaderContainer.style.display = 'none';
-                    geminiButton.disabled = false;
-                    geminiButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                }
-            });
+                });
+            }
         });
     </script>
 
 </body>
 </html>
-
